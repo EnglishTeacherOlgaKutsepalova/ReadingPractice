@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор игры "Мост букв"</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .editor-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        .editor-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .editor-section h2 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .word-level {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+        .iframe-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        .btn-generate {
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            color: #333;
+            font-size: 18px;
+            padding: 15px 40px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <h1>🎨 Редактор игры "Мост букв: строй и читай"</h1>
+        
+        <!-- Настройки игры -->
+        <div class="editor-section">
+            <h2>⚙️ Основные настройки</h2>
+            
+            <div class="form-group">
+                <label>Количество мостов (уровней):</label>
+                <input type="number" id="levelCount" min="1" max="20" value="10">
+            </div>
+
+            <div class="form-group">
+                <label>Количество попыток на слово:</label>
+                <select id="attemptsCount">
+                    <option value="1">1 попытка</option>
+                    <option value="2" selected>2 попытки</option>
+                    <option value="3">3 попытки</option>
+                    <option value="0">Без ограничений</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Таймер (секунд, 0 = без таймера):</label>
+                <input type="number" id="timerSeconds" min="0" max="300" value="60">
+            </div>
+
+            <div class="form-group">
+                <label>Язык интерфейса:</label>
+                <select id="language">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Слова и уровни -->
+        <div class="editor-section">
+            <h2>🔤 Слова для уровней</h2>
+            <p>Добавьте слова для каждого уровня. Каждое слово должно быть на английском.</p>
+            
+            <div id="levelsContainer"></div>
+            
+            <button class="btn btn-primary" onclick="addLevel()">➕ Добавить уровень</button>
+        </div>
+
+        <!-- Персонаж и дизайн -->
+        <div class="editor-section">
+            <h2>🎭 Персонаж и дизайн</h2>
+            
+            <div class="form-group">
+                <label>Персонаж (выберите или вставьте URL):</label>
+                <select id="characterSelect" onchange="updateCharacterPreview()">
+                    <option value="https://cdn.pixabay.com/photo/2017/09/26/13/42/cartoon-character-2788922_1280.png">Ребёнок</option>
+                    <option value="https://cdn.pixabay.com/photo/2014/04/03/13/35/fox-315831_1280.png">Лиса</option>
+                    <option value="https://cdn.pixabay.com/photo/2017/01/16/09/48/cartoon-character-1984362_1280.png">Заяц</option>
+                    <option value="custom">Свой персонаж (вставить URL)</option>
+                </select>
+                <input type="text" id="characterCustom" placeholder="Вставьте ссылку на изображение персонажа" style="display: none;">
+                <div id="characterPreview" style="margin-top: 10px;"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Конечный приз:</label>
+                <select id="finalPrize">
+                    <option value="medal">🥇 Медаль</option>
+                    <option value="treasure">💎 Сундук с сокровищами</option>
+                    <option value="certificate">📜 Сертификат</option>
+                    <option value="castle">🏰 Замок</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Генерация кода -->
+        <div class="editor-section">
+            <h2>🚀 Генерация кода для встраивания</h2>
+            <button class="btn btn-generate" onclick="generateIframe()">Сгенерировать код</button>
+            
+            <div class="iframe-code" id="iframeCode" style="display: none;">
+                <code>&lt;iframe src="https://yourusername.github.io/bridge-letters-game/index.html?config=..." width="800" height="600" frameborder="0"&gt;&lt;/iframe&gt;</code>
+            </div>
+            
+            <div id="configData" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="editor.js"></script>
+</body>
+</html>

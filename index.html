@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мост букв: строй и читай</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Контейнер игры -->
+    <div class="game-container">
+        <!-- Карта прогресса -->
+        <div class="map-container">
+            <div class="map-track"></div>
+            <div class="map-points" id="mapPoints"></div>
+            <div class="character" id="character"></div>
+            <div class="progress-info">
+                <span id="levelCounter">1/10</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Игровая область -->
+        <div class="game-area">
+            <!-- Картинка-цель -->
+            <div class="target-image-container">
+                <img src="" alt="Целевое слово" id="targetImage" class="target-image">
+                <div class="target-word" id="targetWordText"></div>
+            </div>
+
+            <!-- Основание моста -->
+            <div class="bridge-base" id="bridgeBase"></div>
+
+            <!-- Блоки с буквами -->
+            <div class="letter-blocks-container" id="letterBlocksContainer"></div>
+
+            <!-- Кнопки управления -->
+            <div class="controls">
+                <button class="btn btn-check" id="checkBtn">Проверить</button>
+                <button class="btn btn-reset" id="resetBtn">Сбросить</button>
+                <div class="attempts" id="attemptsDisplay">Попытки: 3/3</div>
+                <div class="timer" id="timerDisplay">Время: 60с</div>
+            </div>
+
+            <!-- Фидбек -->
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <!-- Финальный экран -->
+        <div class="final-screen" id="finalScreen">
+            <div class="final-content">
+                <h2>🎉 Молодец! Ты построил все мосты! 🎉</h2>
+                <div class="final-stats">
+                    <p>Слов собрано: <span id="totalWords"></span></p>
+                    <p>Время игры: <span id="totalTime"></span></p>
+                    <p>Ошибок: <span id="totalErrors"></span></p>
+                </div>
+                <div class="final-prize" id="finalPrize"></div>
+                <button class="btn btn-restart" id="restartBtn">Начать заново</button>
+            </div>
+        </div>
+
+        <!-- Аудио элемент -->
+        <audio id="audioPlayer"></audio>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
