@@ -141,15 +141,10 @@
             position: relative;
         }
 
-        .target-image {
-            max-width: 200px;
-            height: 200px;
-            object-fit: contain;
-            border: 4px solid #d4af37;
-            border-radius: 20px;
-            background: white;
-            padding: 10px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        .target-emoji {
+            font-size: 120px;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .speak-btn {
@@ -269,14 +264,6 @@
         .letter-block.correct {
             border-color: #4caf50;
             transform: scale(1.05);
-        }
-
-        .letter-char {
-            font-size: 36px;
-            font-weight: bold;
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            z-index: 2;
         }
 
         .letter-hint {
@@ -447,9 +434,8 @@
                 height: 100px;
             }
             
-            .target-image {
-                max-width: 150px;
-                height: 150px;
+            .target-emoji {
+                font-size: 80px;
             }
             
             .speak-btn {
@@ -462,10 +448,6 @@
             .letter-block {
                 width: 85px;
                 height: 105px;
-            }
-            
-            .letter-char {
-                font-size: 28px;
             }
             
             .letter-hint {
@@ -504,7 +486,7 @@
                 <div class="speak-btn" id="speakBtn">
                     <div class="speak-icon"></div>
                 </div>
-                <img src="" alt="Целевое слово" id="targetImage" class="target-image">
+                <div class="target-emoji" id="targetEmoji"></div>
                 <div class="target-word" id="targetWordText"></div>
             </div>
 
@@ -548,18 +530,29 @@
             'u': 'umbrella', 'v': 'vase', 'w': 'woman', 'x': 'box', 'y': 'yellow', 'z': 'zebra'
         };
 
-        // База изображений для слов (заглушки)
-        const wordImages = {
-            'ant': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/ant.png',
-            'cat': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/cat.png',
-            'dog': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/dog.png',
-            'sun': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/sun.png',
-            'hat': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/hat.png',
-            'pen': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/pen.png',
-            'cup': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/cup.png',
-            'egg': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/egg.png',
-            'box': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/box.png',
-            'bed': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/bed.png'
+        // База эмодзи для слов
+        const wordEmojis = {
+            'ant': '🐜', 'cat': '🐱', 'dog': '🐶', 'sun': '☀️', 'hat': '🎩',
+            'pen': '✏️', 'cup': '☕', 'egg': '🥚', 'box': '📦', 'bed': '🛏️',
+            'apple': '🍎', 'ball': '⚽', 'frog': '🐸', 'glass': '🥛', 'insect': '🐛',
+            'jam': '🍓', 'kite': '🪁', 'lemon': '🍋', 'man': '👨', 'nest': '🪹',
+            'orange': '🍊', 'queen': '👑', 'ring': '💍', 'star': '⭐', 'table': '🪑',
+            'umbrella': '☔', 'vase': '🏺', 'woman': '👩', 'yellow': '🟡', 'zebra': '🦓',
+            'bee': '🐝', 'car': '🚗', 'duck': '🦆', 'fish': '🐟', 'goat': '🐐',
+            'house': '🏠', 'ice': '🧊', 'juice': '🧃', 'key': '🔑', 'lion': '🦁',
+            'moon': '🌙', 'nose': '👃', 'owl': '🦉', 'pig': '🐷', 'queen': '👸',
+            'rose': '🌹', 'ship': '🚢', 'tree': '🌳', 'umbrella': '☂️', 'van': '🚐',
+            'wolf': '🐺', 'yacht': '⛵', 'zoo': '🦁', 'bus': '🚌', 'cow': '🐮',
+            'door': '🚪', 'eye': '👁️', 'fan': '🌀', 'grape': '🍇', 'hand': '✋',
+            'igloo': '🏠', 'jacket': '🧥', 'kangaroo': '🦘', 'leaf': '🍃', 'mouse': '🐭',
+            'nail': '💅', 'octopus': '🐙', 'panda': '🐼', 'quill': '✒️', 'rabbit': '🐰',
+            'snake': '🐍', 'tiger': '🐯', 'unicorn': '🦄', 'violin': '🎻', 'whale': '🐳',
+            'yak': '🐃', 'zebra': '🦓', 'arm': '💪', 'bag': '🎒', 'chair': '🪑',
+            'desk': '💼', 'ear': '👂', 'foot': '🦶', 'guitar': '🎸', 'hair': '💇',
+            'icecream': '🍦', 'jelly': '🍮', 'knight': '⚔️', 'lamp': '💡', 'mask': '🎭',
+            'net': '🎣', 'ocean': '🌊', 'pizza': '🍕', 'quilt': '🛏️', 'rock': '🪨',
+            'sand': '🏖️', 'tent': '⛺', 'up': '⬆️', 'vest': '🧥', 'water': '💧',
+            'xylophone': '🎵', 'yogurt': '🥛', 'zipper': '🧥'
         };
 
         // Глобальные переменные
@@ -608,7 +601,7 @@
             // Преобразование списка слов в уровни
             levels = gameConfig.words.map(word => ({
                 word: word.toLowerCase(),
-                image: wordImages[word.toLowerCase()] || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png',
+                emoji: wordEmojis[word.toLowerCase()] || '❓',
                 letters: getLettersForWord(word)
             }));
             
@@ -625,7 +618,7 @@
             // Преобразование списка слов в уровни
             levels = config.words.map(word => ({
                 word: word.toLowerCase(),
-                image: wordImages[word.toLowerCase()] || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png',
+                emoji: wordEmojis[word.toLowerCase()] || '❓',
                 letters: getLettersForWord(word)
             }));
             
@@ -663,7 +656,8 @@
             
             const level = levels[levelIndex];
             
-            document.getElementById('targetImage').src = level.image;
+            // Отображаем эмодзи вместо картинки
+            document.getElementById('targetEmoji').textContent = level.emoji;
             document.getElementById('targetWordText').textContent = gameConfig.language === 'en' ? level.word : '';
             
             const bridgeBase = document.getElementById('bridgeBase');
@@ -689,7 +683,7 @@
                 
                 const hintUrl = `https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/${letter}-hint.png`;
                 
-                // Убрали заглавную букву, оставили только изображение с подсказкой
+                // Только изображение с подсказкой, без буквы
                 block.innerHTML = `
                     <img src="${hintUrl}" alt="${letterAssociations[letter]}" class="letter-hint" onerror="this.src='https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png'">
                 `;
