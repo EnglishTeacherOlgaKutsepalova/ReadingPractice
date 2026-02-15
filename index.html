@@ -135,7 +135,7 @@
             position: relative;
         }
 
-        .target-image-container {
+        .target-emoji-container {
             text-align: center;
             margin-bottom: 20px;
             position: relative;
@@ -163,6 +163,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             z-index: 10;
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .speak-btn:hover {
@@ -172,12 +174,6 @@
 
         .speak-btn:active {
             transform: scale(0.95);
-        }
-
-        .speak-icon {
-            width: 25px;
-            height: 25px;
-            background: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>') center/contain no-repeat;
         }
 
         .target-word {
@@ -443,6 +439,7 @@
                 height: 40px;
                 top: -10px;
                 right: -10px;
+                font-size: 18px;
             }
             
             .letter-block {
@@ -482,10 +479,8 @@
         </div>
 
         <div class="game-area">
-            <div class="target-image-container">
-                <div class="speak-btn" id="speakBtn">
-                    <div class="speak-icon"></div>
-                </div>
+            <div class="target-emoji-container">
+                <div class="speak-btn" id="speakBtn">🔊</div>
                 <div class="target-emoji" id="targetEmoji"></div>
                 <div class="target-word" id="targetWordText"></div>
             </div>
@@ -540,19 +535,19 @@
             'umbrella': '☔', 'vase': '🏺', 'woman': '👩', 'yellow': '🟡', 'zebra': '🦓',
             'bee': '🐝', 'car': '🚗', 'duck': '🦆', 'fish': '🐟', 'goat': '🐐',
             'house': '🏠', 'ice': '🧊', 'juice': '🧃', 'key': '🔑', 'lion': '🦁',
-            'moon': '🌙', 'nose': '👃', 'owl': '🦉', 'pig': '🐷', 'queen': '👸',
-            'rose': '🌹', 'ship': '🚢', 'tree': '🌳', 'umbrella': '☂️', 'van': '🚐',
+            'moon': '🌙', 'nose': '👃', 'owl': '🦉', 'pig': '🐷', 'princess': '👸',
+            'rose': '🌹', 'ship': '🚢', 'tree': '🌳', 'umbrella2': '☂️', 'van': '🚐',
             'wolf': '🐺', 'yacht': '⛵', 'zoo': '🦁', 'bus': '🚌', 'cow': '🐮',
             'door': '🚪', 'eye': '👁️', 'fan': '🌀', 'grape': '🍇', 'hand': '✋',
             'igloo': '🏠', 'jacket': '🧥', 'kangaroo': '🦘', 'leaf': '🍃', 'mouse': '🐭',
             'nail': '💅', 'octopus': '🐙', 'panda': '🐼', 'quill': '✒️', 'rabbit': '🐰',
             'snake': '🐍', 'tiger': '🐯', 'unicorn': '🦄', 'violin': '🎻', 'whale': '🐳',
-            'yak': '🐃', 'zebra': '🦓', 'arm': '💪', 'bag': '🎒', 'chair': '🪑',
+            'yak': '🐃', 'zebra2': '🦓', 'arm': '💪', 'bag': '🎒', 'chair': '🪑',
             'desk': '💼', 'ear': '👂', 'foot': '🦶', 'guitar': '🎸', 'hair': '💇',
             'icecream': '🍦', 'jelly': '🍮', 'knight': '⚔️', 'lamp': '💡', 'mask': '🎭',
             'net': '🎣', 'ocean': '🌊', 'pizza': '🍕', 'quilt': '🛏️', 'rock': '🪨',
             'sand': '🏖️', 'tent': '⛺', 'up': '⬆️', 'vest': '🧥', 'water': '💧',
-            'xylophone': '🎵', 'yogurt': '🥛', 'zipper': '🧥'
+            'xylophone': '🎵', 'yogurt': '🥛', 'zipper': '🧥', 'zip': '🤐', 'zip2': '🤐'
         };
 
         // Глобальные переменные
