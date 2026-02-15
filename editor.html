@@ -113,6 +113,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 10px;
+            width: 100%;
         }
 
         .btn-primary:hover {
@@ -152,6 +153,16 @@
         .instructions p {
             color: #856404;
             margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #721c24;
         }
     </style>
 </head>
@@ -159,6 +170,11 @@
     <div class="editor-container">
         <h1 style="text-align: center; color: #d4af37; margin-bottom: 30px;">🎨 Редактор игры "Мост букв: строй и читай"</h1>
         
+        <div class="warning">
+            <strong>⚠️ ВАЖНО:</strong> Для работы игры необходимо включить GitHub Pages в настройках репозитория!
+            <br>Settings → Pages → Branch: main → Save
+        </div>
+
         <div class="instructions">
             <h3>📋 Инструкция по использованию:</h3>
             <p>1. Введите слова через запятую (только английские)</p>
@@ -176,7 +192,7 @@
             <p style="color: #666; font-size: 12px; margin-top: 5px;">
                 Доступные буквы: a-z<br>
                 Ассоциации: a-apple, b-ball, c-cat, d-dog, e-egg, f-frog, g-glass, h-hat, i-insect, j-jam, k-kite, l-lemon, m-man, n-nest, o-orange, p-pen, q-queen, r-ring, s-star, t-table, u-umbrella, v-vase, w-woman, x-box, y-yellow, z-zebra<br>
-                Картинки ассоциаций: a-hint.png, b-hint.png, c-hint.png и т.д.
+                Картинки ассоциаций: a-hint.png, b-hint.png, c-hint.png и т.д. (должны быть загружены в репозиторий)
             </p>
         </div>
 
@@ -211,10 +227,10 @@
             <h2>🎭 Дизайн</h2>
             
             <div class="form-group">
-                <label>Персонаж (ссылка на изображение):</label>
-                <input type="url" id="characterUrl" value="https://i.postimg.cc/YSXvY8Jr/cartoon-character.png" placeholder="https://example.com/character.png">
+                <label>Персонаж (ссылка на изображение из репозитория):</label>
+                <input type="url" id="characterUrl" value="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png" placeholder="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png">
                 <div class="character-preview">
-                    <img id="characterPreviewImg" src="https://i.postimg.cc/YSXvY8Jr/cartoon-character.png" alt="Предпросмотр персонажа">
+                    <img id="characterPreviewImg" src="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png" alt="Предпросмотр персонажа" onerror="this.src='https://via.placeholder.com/100?text=No+Image'">
                 </div>
             </div>
 
@@ -238,7 +254,15 @@
                 <code id="codeContent"></code>
             </div>
             
-            <button class="btn-primary" id="copyBtn" style="display: none; width: 100%;" onclick="copyToClipboard()">📋 Копировать код</button>
+            <button class="btn-primary" id="copyBtn" style="display: none;" onclick="copyToClipboard()">📋 Копировать код</button>
+            
+            <div class="instructions" style="margin-top: 20px;">
+                <h3>🔍 Как проверить работу:</h3>
+                <p>1. Сгенерируйте код</p>
+                <p>2. Откройте в браузере: <strong>https://englishteacherolga.github.io/ReadingPractice/</strong></p>
+                <p>3. Добавьте параметр ?config=... из вашего кода</p>
+                <p>Пример: <code>https://englishteacherolga.github.io/ReadingPractice/?config=eyJhd...</code></p>
+            </div>
         </div>
     </div>
 
@@ -246,7 +270,7 @@
         // Предпросмотр персонажа
         document.getElementById('characterUrl').addEventListener('input', function(e) {
             const preview = document.getElementById('characterPreviewImg');
-            preview.src = e.target.value || 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png';
+            preview.src = e.target.value || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png';
         });
 
         function generateIframe() {
@@ -262,12 +286,15 @@
                 attempts: parseInt(document.getElementById('attemptsCount').value),
                 timer: parseInt(document.getElementById('timerSeconds').value),
                 language: document.getElementById('language').value,
-                character: document.getElementById('characterUrl').value || 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
+                character: document.getElementById('characterUrl').value || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png',
                 finalPrize: document.getElementById('finalPrize').value,
                 words: words
             };
 
+            // Кодируем конфигурацию для передачи через URL
             const encodedConfig = btoa(JSON.stringify(config));
+            
+            // ВАЖНО: для работы игры ОБЯЗАТЕЛЬНО нужен GitHub Pages URL
             const iframeUrl = `https://englishteacherolga.github.io/ReadingPractice/?config=${encodedConfig}`;
             
             const iframeCode = `<iframe src="${iframeUrl}" width="800" height="600" frameborder="0" allow="autoplay; speech-synthesis"></iframe>`;
@@ -284,7 +311,7 @@
                 alert('📋 Теперь вставьте его в Genially: Insert → Others');
             }).catch(err => {
                 console.error('Ошибка копирования:', err);
-                alert('Не удалось скопировать код. Попробуйте выделить и скопировать вручную.');
+                alert('Не удалось скопировать код. Попробуйте выделить текст и скопировать вручную (Ctrl+C).');
             });
         }
     </script>
