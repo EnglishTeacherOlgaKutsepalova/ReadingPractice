@@ -94,7 +94,7 @@
             transform: translateY(-50%);
             width: 40px;
             height: 40px;
-            background: url('https://i.postimg.cc/YSXvY8Jr/cartoon-character.png') center/contain no-repeat;
+            background: url('https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png') center/contain no-repeat;
             transition: left 0.5s ease;
         }
 
@@ -414,7 +414,7 @@
             width: 150px;
             height: 150px;
             margin: 0 auto 30px;
-            background: url('https://i.postimg.cc/YSXvY8Jr/cartoon-character.png') center/contain no-repeat;
+            background: url('https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/medal.png') center/contain no-repeat;
         }
 
         .btn-restart {
@@ -548,18 +548,18 @@
             'u': 'umbrella', 'v': 'vase', 'w': 'woman', 'x': 'box', 'y': 'yellow', 'z': 'zebra'
         };
 
-        // База изображений для слов
+        // База изображений для слов (заглушки)
         const wordImages = {
-            'ant': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'cat': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'dog': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'sun': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'hat': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'pen': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'cup': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'egg': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'box': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-            'bed': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png'
+            'ant': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/ant.png',
+            'cat': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/cat.png',
+            'dog': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/dog.png',
+            'sun': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/sun.png',
+            'hat': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/hat.png',
+            'pen': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/pen.png',
+            'cup': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/cup.png',
+            'egg': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/egg.png',
+            'box': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/box.png',
+            'bed': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/bed.png'
         };
 
         // Глобальные переменные
@@ -600,7 +600,7 @@
                 attempts: 3,
                 timer: 60,
                 language: 'ru',
-                character: 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
+                character: 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png',
                 finalPrize: 'medal',
                 words: ['ant', 'cat', 'dog', 'sun', 'hat', 'pen', 'cup', 'egg', 'box', 'bed']
             };
@@ -608,7 +608,7 @@
             // Преобразование списка слов в уровни
             levels = gameConfig.words.map(word => ({
                 word: word.toLowerCase(),
-                image: wordImages[word.toLowerCase()] || 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
+                image: wordImages[word.toLowerCase()] || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png',
                 letters: getLettersForWord(word)
             }));
             
@@ -625,7 +625,7 @@
             // Преобразование списка слов в уровни
             levels = config.words.map(word => ({
                 word: word.toLowerCase(),
-                image: wordImages[word.toLowerCase()] || 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
+                image: wordImages[word.toLowerCase()] || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png',
                 letters: getLettersForWord(word)
             }));
             
@@ -687,11 +687,11 @@
                 block.draggable = true;
                 block.dataset.letter = letter;
                 
-                const hintUrl = `https://englishteacherolga.github.io/ReadingPractice/${letter}-hint.png`;
+                const hintUrl = `https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/${letter}-hint.png`;
                 
                 block.innerHTML = `
                     <div class="letter-char">${letter.toUpperCase()}</div>
-                    <img src="${hintUrl}" alt="${letterAssociations[letter]}" class="letter-hint">
+                    <img src="${hintUrl}" alt="${letterAssociations[letter]}" class="letter-hint" onerror="this.src='https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png'">
                 `;
                 
                 block.addEventListener('dragstart', handleDragStart);
@@ -887,10 +887,10 @@
             
             const prizeElement = document.getElementById('finalPrize');
             const prizes = {
-                'medal': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-                'treasure': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-                'certificate': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png',
-                'castle': 'https://i.postimg.cc/YSXvY8Jr/cartoon-character.png'
+                'medal': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/medal.png',
+                'treasure': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/treasure.png',
+                'certificate': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/certificate.png',
+                'castle': 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/castle.png'
             };
             
             prizeElement.style.backgroundImage = `url('${prizes[gameConfig.finalPrize]}')`;
@@ -909,7 +909,7 @@
             
             const audio = document.getElementById('audioPlayer');
             audio.src = sounds[type];
-            audio.play();
+            audio.play().catch(e => console.log('Audio play failed (user interaction needed):', e));
         }
 
         function speakWord(word) {
