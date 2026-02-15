@@ -122,22 +122,6 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .character-preview {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .character-preview img {
-            max-width: 100px;
-            border-radius: 10px;
-            border: 3px solid #d4af37;
-        }
-
-        code {
-            display: block;
-            overflow-x: auto;
-        }
-
         .instructions {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -157,22 +141,9 @@
             line-height: 1.5;
         }
 
-        .warning {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 8px;
-            color: #721c24;
-        }
-
-        .info-box {
-            background: #d1ecf1;
-            border-left: 4px solid #0c5460;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 8px;
-            color: #0c5460;
+        code {
+            display: block;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -180,15 +151,6 @@
     <div class="editor-container">
         <h1 style="text-align: center; color: #d4af37; margin-bottom: 30px;">🎨 Редактор игры "Мост букв: строй и читай"</h1>
         
-        <div class="warning">
-            <strong>⚠️ ВАЖНО:</strong> Для работы игры необходимо включить GitHub Pages в настройках репозитория!
-            <br>Settings → Pages → Branch: main → Save
-        </div>
-
-        <div class="info-box">
-            <strong>ℹ️ Информация:</strong> Игра оптимизирована для формата 16:9 (960×540 пикселей) для встраивания в Genially
-        </div>
-
         <div class="instructions">
             <h3>📋 Инструкция по использованию:</h3>
             <p>1. Введите слова через запятую (только английские)</p>
@@ -206,8 +168,7 @@
             <p style="color: #666; font-size: 12px; margin-top: 5px;">
                 <strong>Доступные буквы:</strong> a-z<br>
                 <strong>Ассоциации:</strong> a-apple, b-ball, c-cat, d-dog, e-egg, f-frog, g-glass, h-hat, i-insect, j-jam, k-kite, l-lemon, m-man, n-nest, o-orange, p-pen, q-queen, r-ring, s-star, t-table, u-umbrella, v-vase, w-woman, x-box, y-yellow, z-zebra<br>
-                <strong>Поддержка:</strong> Слова от 3 до 6 букв (и более)<br>
-                <strong>Картинки:</strong> a-hint.png, b-hint.png, c-hint.png и т.д. (должны быть загружены в репозиторий)
+                <strong>Поддержка:</strong> Слова от 3 до 6 букв (и более)
             </p>
         </div>
 
@@ -228,25 +189,14 @@
                 <label>Таймер (секунд, 0 = без таймера):</label>
                 <input type="number" id="timerSeconds" min="0" max="300" value="60">
             </div>
-
-            <div class="form-group">
-                <label>Язык интерфейса:</label>
-                <select id="language">
-                    <option value="ru" selected>Русский</option>
-                    <option value="en">English</option>
-                </select>
-            </div>
         </div>
 
         <div class="editor-section">
             <h2>🎭 Дизайн</h2>
             
             <div class="form-group">
-                <label>Персонаж (ссылка на изображение из репозитория):</label>
-                <input type="url" id="characterUrl" value="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png" placeholder="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png">
-                <div class="character-preview">
-                    <img id="characterPreviewImg" src="https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png" alt="Предпросмотр персонажа" onerror="this.src='https://via.placeholder.com/100?text=No+Image'">
-                </div>
+                <label>Персонаж (url-ссылка на изображение):</label>
+                <input type="url" id="characterUrl" value="https://img.genially.com/656427f3b4e82f0019d59fb5/91e03ad0-761c-4c50-9842-55f1723e8331.png" placeholder="https://example.com/character.png">
             </div>
 
             <div class="form-group">
@@ -263,7 +213,9 @@
         <div class="editor-section">
             <h2>🚀 Генерация кода для Genially</h2>
             <p style="color: #666; margin-bottom: 15px;">
-                <strong>🎯 Оптимальный размер для Genially: 960×540 пикселей (формат 16:9)</strong><br>
+                Создайте Genially и настройте размер через Resize - Canvas - Custom 1200 x 1200 px
+            </p>
+            <p style="color: #666; margin-bottom: 15px;">
                 Скопируйте код ниже и вставьте в Genially через меню: <strong>Insert → Others</strong>
             </p>
             <button class="btn btn-generate" onclick="generateIframe()">Сгенерировать код для Genially</button>
@@ -273,24 +225,10 @@
             </div>
             
             <button class="btn-primary" id="copyBtn" style="display: none;" onclick="copyToClipboard()">📋 Копировать код</button>
-            
-            <div class="instructions" style="margin-top: 20px;">
-                <h3>🔍 Как проверить работу:</h3>
-                <p>1. Сгенерируйте код</p>
-                <p>2. Откройте в браузере: <strong>https://englishteacherolgakutsepalova.github.io/ReadingPractice/</strong></p>
-                <p>3. Добавьте параметр ?config=... из вашего кода</p>
-                <p>Пример: <code>https://englishteacherolgakutsepalova.github.io/ReadingPractice/?config=eyJhd...</code></p>
-            </div>
         </div>
     </div>
 
     <script>
-        // Предпросмотр персонажа
-        document.getElementById('characterUrl').addEventListener('input', function(e) {
-            const preview = document.getElementById('characterPreviewImg');
-            preview.src = e.target.value || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png';
-        });
-
         function generateIframe() {
             const wordsInput = document.getElementById('wordsList').value.trim();
             const words = wordsInput.split(',').map(w => w.trim().toLowerCase()).filter(w => w);
@@ -300,11 +238,14 @@
                 return;
             }
 
+            // Получаем ссылку на персонажа или используем пустую строку
+            const characterUrl = document.getElementById('characterUrl').value.trim() || '';
+
             const config = {
                 attempts: parseInt(document.getElementById('attemptsCount').value),
                 timer: parseInt(document.getElementById('timerSeconds').value),
-                language: document.getElementById('language').value,
-                character: document.getElementById('characterUrl').value || 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png',
+                language: 'ru', // Всегда русский язык
+                character: characterUrl,
                 finalPrize: document.getElementById('finalPrize').value,
                 words: words
             };
@@ -312,7 +253,7 @@
             // Кодируем конфигурацию для передачи через URL
             const encodedConfig = btoa(JSON.stringify(config));
             
-            // URL для игры (обязательно через GitHub Pages) - ИСПРАВЛЕНО!
+            // URL для игры (обязательно через GitHub Pages)
             const iframeUrl = `https://englishteacherolgakutsepalova.github.io/ReadingPractice/?config=${encodedConfig}`;
             
             // Код для вставки в Genially (960×540 - оптимальный размер для 16:9)
