@@ -190,15 +190,16 @@
         .bridge-base {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 40px;
             min-height: 100px;
             padding: 20px;
+            flex-wrap: wrap;
         }
 
         .bridge-slot {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             background: rgba(139, 69, 19, 0.2);
             border: 3px dashed #8b4513;
             border-radius: 15px;
@@ -219,14 +220,14 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 30px;
             min-height: 150px;
         }
 
         .letter-block {
-            width: 110px;
-            height: 130px;
+            width: 100px;
+            height: 120px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border: 4px solid #d4af37;
             border-radius: 20px;
@@ -263,8 +264,8 @@
         }
 
         .letter-hint {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             margin-top: 5px;
             object-fit: contain;
             border-radius: 10px;
@@ -462,6 +463,28 @@
                 font-size: 16px;
             }
         }
+
+        /* Адаптивность для слов с 5-6 буквами */
+        @media (max-width: 600px) {
+            .bridge-slot {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .letter-block {
+                width: 75px;
+                height: 95px;
+            }
+            
+            .letter-hint {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .target-emoji {
+                font-size: 70px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -525,29 +548,32 @@
             'u': 'umbrella', 'v': 'vase', 'w': 'woman', 'x': 'box', 'y': 'yellow', 'z': 'zebra'
         };
 
-        // База эмодзи для слов
+        // База эмодзи для слов (3-6 букв)
         const wordEmojis = {
+            // 3 буквы
             'ant': '🐜', 'cat': '🐱', 'dog': '🐶', 'sun': '☀️', 'hat': '🎩',
             'pen': '✏️', 'cup': '☕', 'egg': '🥚', 'box': '📦', 'bed': '🛏️',
-            'apple': '🍎', 'ball': '⚽', 'frog': '🐸', 'glass': '🥛', 'insect': '🐛',
-            'jam': '🍓', 'kite': '🪁', 'lemon': '🍋', 'man': '👨', 'nest': '🪹',
-            'orange': '🍊', 'queen': '👑', 'ring': '💍', 'star': '⭐', 'table': '🪑',
-            'umbrella': '☔', 'vase': '🏺', 'woman': '👩', 'yellow': '🟡', 'zebra': '🦓',
-            'bee': '🐝', 'car': '🚗', 'duck': '🦆', 'fish': '🐟', 'goat': '🐐',
-            'house': '🏠', 'ice': '🧊', 'juice': '🧃', 'key': '🔑', 'lion': '🦁',
-            'moon': '🌙', 'nose': '👃', 'owl': '🦉', 'pig': '🐷', 'princess': '👸',
-            'rose': '🌹', 'ship': '🚢', 'tree': '🌳', 'umbrella2': '☂️', 'van': '🚐',
-            'wolf': '🐺', 'yacht': '⛵', 'zoo': '🦁', 'bus': '🚌', 'cow': '🐮',
-            'door': '🚪', 'eye': '👁️', 'fan': '🌀', 'grape': '🍇', 'hand': '✋',
-            'igloo': '🏠', 'jacket': '🧥', 'kangaroo': '🦘', 'leaf': '🍃', 'mouse': '🐭',
-            'nail': '💅', 'octopus': '🐙', 'panda': '🐼', 'quill': '✒️', 'rabbit': '🐰',
-            'snake': '🐍', 'tiger': '🐯', 'unicorn': '🦄', 'violin': '🎻', 'whale': '🐳',
-            'yak': '🐃', 'zebra2': '🦓', 'arm': '💪', 'bag': '🎒', 'chair': '🪑',
-            'desk': '💼', 'ear': '👂', 'foot': '🦶', 'guitar': '🎸', 'hair': '💇',
-            'icecream': '🍦', 'jelly': '🍮', 'knight': '⚔️', 'lamp': '💡', 'mask': '🎭',
-            'net': '🎣', 'ocean': '🌊', 'pizza': '🍕', 'quilt': '🛏️', 'rock': '🪨',
-            'sand': '🏖️', 'tent': '⛺', 'up': '⬆️', 'vest': '🧥', 'water': '💧',
-            'xylophone': '🎵', 'yogurt': '🥛', 'zipper': '🧥', 'zip': '🤐', 'zip2': '🤐'
+            'bee': '🐝', 'bus': '🚌', 'cow': '🐮', 'fan': '🌀', 'key': '🔑',
+            'leg': '🦵', 'pig': '🐷', 'rat': '🐀', 'toy': '🧸', 'van': '🚐',
+            
+            // 4 буквы
+            'book': '📚', 'door': '🚪', 'fish': '🐟', 'frog': '🐸', 'girl': '👧',
+            'hand': '✋', 'lamp': '💡', 'lion': '🦁', 'moon': '🌙', 'nest': '🪹',
+            'pear': '🍐', 'rose': '🌹', 'ship': '🚢', 'star': '⭐', 'tree': '🌳',
+            'wolf': '🐺', 'bear': '🐻', 'duck': '🦆', 'eyes': '👀', 'feet': '🦶',
+            
+            // 5 букв
+            'apple': '🍎', 'bread': '🍞', 'chair': '🪑', 'dance': '💃', 'eagle': '🦅',
+            'flame': '🔥', 'grape': '🍇', 'horse': '🐴', 'igloo': '🏠', 'juice': '🧃',
+            'kayak': '🛶', 'lemon': '🍋', 'mango': '🥭', 'night': '🌙', 'ocean': '🌊',
+            'pizza': '🍕', 'queen': '👑', 'robot': '🤖', 'snake': '🐍', 'tiger': '🐯',
+            
+            // 6 букв
+            'banana': '🍌', 'bottle': '🍾', 'butter': '🧈', 'camera': '📷', 'castle': '🏰',
+            'cookie': '🍪', 'dragon': '🐉', 'flower': '🌼', 'guitar': '🎸', 'hammer': '🔨',
+            'island': '🏝️', 'jacket': '🧥', 'kitten': '🐱', 'lizard': '🦎', 'monkey': '🐒',
+            'orange': '🍊', 'pencil': '✏️', 'rabbit': '🐰', 'rocket': '🚀', 'spider': '🕷️',
+            'tablet': '📱', 'turtle': '🐢', 'window': '🪟', 'yellow': '🟡', 'zebra': '🦓'
         };
 
         // Глобальные переменные
@@ -590,7 +616,7 @@
                 language: 'ru',
                 character: 'https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/character.png',
                 finalPrize: 'medal',
-                words: ['ant', 'cat', 'dog', 'sun', 'hat', 'pen', 'cup', 'egg', 'box', 'bed']
+                words: ['ant', 'cat', 'dog', 'book', 'door', 'apple', 'bread', 'banana', 'camera', 'dragon']
             };
             
             // Преобразование списка слов в уровни
@@ -658,6 +684,7 @@
             const bridgeBase = document.getElementById('bridgeBase');
             bridgeBase.innerHTML = '';
             
+            // Создаём слоты для моста (динамически на основе длины слова)
             for (let i = 0; i < level.word.length; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'bridge-slot';
@@ -668,8 +695,10 @@
             const letterBlocksContainer = document.getElementById('letterBlocksContainer');
             letterBlocksContainer.innerHTML = '';
             
+            // Перемешиваем буквы
             const shuffledLetters = [...level.letters].sort(() => Math.random() - 0.5);
             
+            // Создаём блоки с буквами
             shuffledLetters.forEach(letter => {
                 const block = document.createElement('div');
                 block.className = 'letter-block';
@@ -678,7 +707,7 @@
                 
                 const hintUrl = `https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/${letter}-hint.png`;
                 
-                // Только изображение с подсказкой, без буквы
+                // Только изображение с подсказкой
                 block.innerHTML = `
                     <img src="${hintUrl}" alt="${letterAssociations[letter]}" class="letter-hint" onerror="this.src='https://raw.githubusercontent.com/EnglishTeacherOlgaKutsepalova/ReadingPractice/main/placeholder.png'">
                 `;
